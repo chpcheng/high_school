@@ -96,7 +96,7 @@ TabBar（底部导航）
       · 单选/多选：比较选项 key 集合
       · 填空：忽略大小写/首尾空格后比对（支持多空、多个等价答案）
       · 解答题：关键词命中给分；无关键词时标记「待批改」由教师/管理员补判
-  → 事务内写入三类数据：
+  → 写入三类数据（顺序执行；生产环境高并发场景可升级为事务）：
       1) answer_records 答题记录（含得分、是否答对、查看到第几步）
       2) mistake_book  错题本：答错则 upsert（wrongCount+1，状态 open）
                          答对且有 open 记录则标记 resolved
@@ -260,11 +260,15 @@ knowledge_points 1 ──── N mastery   N ──── 1 用户
 |---|---|---|
 | login | 启动时 | 返回 openid |
 | initData | 手动执行一次 | 建集合 + 写入种子数据 |
+| getSubjects | 首页/学科页 | 返回全部学科 |
+| getKnowledgePoints | 选题页 | 返回某学科知识点 + 当前用户掌握度 |
 | getQuestions | 选题 | 按学科/知识点/难度随机抽题（不返回答案） |
-| getQuestionDetail | 解析页/错题重看 | 返回完整题目（含答案 + 分步解析） |
-| submitAnswer | 提交 | 判题 + 事务写记录/错题/掌握度 |
-| getMistakes | 错题本 | 分页查错题（联表题目） |
+| getQuestionDetail | 解析页/错题重看 | 返回单题详情（`withAnswer` 控制是否含答案与分步解析） |
+| submitAnswer | 提交 | 判题 + 写答题记录/错题本/掌握度 |
+| getMistakes | 错题本 | 分页查错题（联表补全题目/学科/知识点名称） |
 | getStats | 统计 | 聚合掌握度 + 薄弱点 |
+| updateStepRevealed | 解析页切题/退出 | 记录学生查看分步解析的进度 |
+| updateMistake | 错题本 | 错题状态更新 / 移除 |
 
 ---
 
