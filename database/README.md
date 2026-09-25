@@ -1,6 +1,6 @@
 # 数据库集合与索引
 
-本项目使用微信云开发数据库，共 6 个集合。可通过 `initData` 云函数一键创建并写入种子数据，也可在云开发控制台手动创建。
+本项目使用微信云开发数据库，共 7 个集合。可通过 `initData` 云函数一键创建并写入种子数据，也可在云开发控制台手动创建。
 
 ## 集合清单
 
@@ -9,6 +9,7 @@
 | `subjects` | 学科 |
 | `knowledge_points` | 知识点 |
 | `questions` | 题目（含选项、答案、分步解析） |
+| `users` | 用户（openid/unionid/昵称/头像/身份，主键 = openid） |
 | `answer_records` | 用户答题记录 |
 | `mistake_book` | 错题本 |
 | `mastery` | 知识点掌握度 |
@@ -18,6 +19,8 @@
 | 集合 | 索引字段 | 类型 |
 |---|---|---|
 | `questions` | `knowledgePointId` + `difficulty` + `status` | 组合索引 |
+| `users` | `openid` | 唯一索引（主键已保证） |
+| `users` | `unionid` | 普通索引（跨应用身份查询） |
 | `answer_records` | `userId` + `answeredAt`（降序） | 组合索引 |
 | `answer_records` | `userId` + `questionId` | 组合索引 |
 | `mistake_book` | `userId` + `status` | 组合索引 |

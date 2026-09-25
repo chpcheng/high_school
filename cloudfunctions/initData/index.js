@@ -5,7 +5,7 @@ cloud.init({ env: cloud.DYNAMIC_CURRENT_ENV });
 const db = cloud.database();
 const seed = require('./seed');
 
-const COLLECTIONS = ['subjects', 'knowledge_points', 'questions', 'answer_records', 'mistake_book', 'mastery'];
+const COLLECTIONS = ['subjects', 'knowledge_points', 'questions', 'answer_records', 'mistake_book', 'mastery', 'users'];
 
 exports.main = async () => {
   // 1) 创建集合（已存在则忽略）

@@ -98,6 +98,11 @@ Page({
     }
   },
 
+  // 暂不完善，直接返回
+  onSkip() {
+    wx.navigateBack();
+  },
+
   // 从临时路径提取扩展名（默认 .png）
   getExt(path) {
     const m = /\.(\w+)$/.exec(path || '');

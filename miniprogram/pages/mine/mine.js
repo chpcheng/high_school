@@ -3,6 +3,9 @@ const app = getApp();
 Page({
   data: {
     openid: '',
+    nickname: '',
+    avatarUrl: '',
+    hasProfile: false,   // 是否已完善昵称/头像
     summary: { totalPractice: 0, totalCorrect: 0, accuracyRate: 0 }
   },
 
@@ -13,7 +16,16 @@ Page({
   async load() {
     await app.ensureLogin();
     const openid = app.globalData.openid || '';
-    this.setData({ openid: openid ? openid.slice(0, 8) + '****' : '' });
+    const user = app.getUserInfo() || {};
+    const nickname = user.nickname || '';
+    const avatarUrl = user.avatarUrl || '';
+    this.setData({
+      openid: openid ? openid.slice(0, 8) + '****' : '',
+      nickname,
+      avatarUrl,
+      hasProfile: !!(nickname || avatarUrl)
+    });
+
     wx.cloud.callFunction({ name: 'getStats' })
       .then(res => {
         const s = (res.result && res.result.summary) || {};
@@ -25,6 +37,11 @@ Page({
           }
         });
       }).catch(() => {});
+  },
+
+  // 进入资料完善/编辑页
+  goProfile() {
+    wx.navigateTo({ url: '/pages/profile/profile' });
   },
 
   clearCache() {

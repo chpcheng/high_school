@@ -10,9 +10,15 @@
   background: rgba(255,255,255,0.2); border-radius: 50%;
   margin-right: 28rpx;
   display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+  flex-shrink: 0;
 }
+.avatar-img { width: 120rpx; height: 120rpx; border-radius: 50%; }
+.profile-info { flex: 1; overflow: hidden; }
 .profile-name { font-size: 34rpx; font-weight: 600; }
 .profile-id { font-size: 22rpx; opacity: 0.8; margin-top: 8rpx; }
+.profile-edit { font-size: 22rpx; opacity: 0.8; margin-top: 8rpx; }
+.profile-arrow { flex-shrink: 0; margin-left: 12rpx; }
 
 .data-row {
   display: flex; justify-content: space-between;

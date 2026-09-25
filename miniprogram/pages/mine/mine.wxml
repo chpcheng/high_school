@@ -1,9 +1,16 @@
 <view class="page">
-  <view class="profile">
-    <view class="avatar"><t-icon name="user-circle" size="60rpx" color="#FFFFFF" /></view>
+  <view class="profile" bindtap="goProfile">
+    <view class="avatar">
+      <image wx:if="{{avatarUrl}}" class="avatar-img" src="{{avatarUrl}}" mode="aspectFill" />
+      <t-icon wx:else name="user-circle" size="60rpx" color="#FFFFFF" />
+    </view>
     <view class="profile-info">
-      <view class="profile-name">同学你好</view>
+      <view class="profile-name">{{nickname || '同学你好'}}</view>
       <view class="profile-id" wx:if="{{openid}}">ID: {{openid}}</view>
+      <view class="profile-edit">{{hasProfile ? '点击编辑资料' : '点击完善资料，绑定学习数据'}}</view>
+    </view>
+    <view class="profile-arrow">
+      <t-icon name="chevron-right" size="36rpx" color="rgba(255,255,255,0.8)" />
     </view>
   </view>
 
@@ -20,6 +27,7 @@
   </view>
 
   <view class="card">
+    <view class="menu" bindtap="goProfile"><text>我的资料</text><t-icon name="chevron-right" size="32rpx" color="#C0C4CC" /></view>
     <view class="menu" bindtap="about"><text>关于本小程序</text><t-icon name="chevron-right" size="32rpx" color="#C0C4CC" /></view>
     <view class="menu" bindtap="clearCache"><text>清理缓存</text><t-icon name="chevron-right" size="32rpx" color="#C0C4CC" /></view>
   </view>

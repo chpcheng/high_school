@@ -237,17 +237,37 @@ TabBar（底部导航）
 | lastPracticedAt | Date | 最近练习时间 |
 | updatedAt | Date | 更新时间 |
 
+### 7. `users` 用户（微信授权登录）
+以 **openid 作为文档主键 `_id`**，与业务表 `userId` 对齐。
+
+| 字段 | 类型 | 说明 |
+|---|---|---|
+| `_id` | string | 主键 = openid（唯一） |
+| `openid` | string | 微信 openid（冗余存储便于查询） |
+| `unionid` | string | 微信 unionid（跨应用统一身份，非必填） |
+| `appid` | string | 当前小程序 AppID |
+| `nickname` | string | 昵称（用户主动填写，可为空） |
+| `avatarUrl` | string | 头像（云存储 `cloud://` fileID，可为空） |
+| `role` | string | 身份 `student` / `teacher` / `admin` |
+| `status` | string | `active` / `banned` |
+| `loginCount` | number | 累计登录次数 |
+| `firstLoginAt` | Date | 首次登录时间 |
+| `lastLoginAt` | Date | 最近登录时间 |
+| `createdAt` / `updatedAt` | Date | 创建 / 更新时间 |
+
 ### 关系说明
 ```
+users(openid) 1 ──── N answer_records N ──── 1 questions
+users(openid) 1 ──── N mistake_book    N ──── 1 questions
+users(openid) 1 ──── N mastery         N ──── 1 knowledge_points
 subjects 1 ──── N knowledge_points 1 ──── N questions
                                    (question 内嵌 options / answer / steps)
-questions 1 ──── N answer_records N ──── 1 用户(openid)
-questions 1 ──── N mistake_book    N ──── 1 用户
-knowledge_points 1 ──── N mastery   N ──── 1 用户
 ```
+> 业务表通过 `userId = openid = users._id` 关联用户，云函数统一从 `getWXContext()` 取 `OPENID` 作为 `userId` 读写，保证数据隔离与可追溯。
 
 ### 推荐索引
 - `questions`: `subjectId + knowledgePointId + difficulty + status`
+- `users`: `openid`（唯一，主键保证）、`unionid`
 - `answer_records`: `userId + answeredAt`、`userId + questionId`
 - `mistake_book`: `userId + status`、`userId + questionId`（唯一）
 - `mastery`: `userId + knowledgePointId`（唯一）、`userId + subjectId`
@@ -258,7 +278,8 @@ knowledge_points 1 ──── N mastery   N ──── 1 用户
 
 | 云函数 | 触发 | 职责 |
 |---|---|---|
-| login | 启动时 | 返回 openid |
+| login | 启动时 | 静默登录：获取 openid/unionid，users 集合首次建号 / 重复更新，返回用户信息 |
+| updateProfile | 完善资料 | 保存昵称、头像（云存储 fileID）到 users |
 | initData | 手动执行一次 | 建集合 + 写入种子数据 |
 | getSubjects | 首页/学科页 | 返回全部学科 |
 | getKnowledgePoints | 选题页 | 返回某学科知识点 + 当前用户掌握度 |
@@ -269,6 +290,8 @@ knowledge_points 1 ──── N mastery   N ──── 1 用户
 | getStats | 统计 | 聚合掌握度 + 薄弱点 |
 | updateStepRevealed | 解析页切题/退出 | 记录学生查看分步解析的进度 |
 | updateMistake | 错题本 | 错题状态更新 / 移除 |
+
+> 登录流程、users 表字段、异常处理详见 `docs/微信授权登录设计说明.md`。
 
 ---
 
