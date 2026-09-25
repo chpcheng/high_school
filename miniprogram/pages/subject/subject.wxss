@@ -1,0 +1,22 @@
+.page { padding: 24rpx; }
+
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+}
+.subject {
+  width: calc((100% - 48rpx) / 3);
+  background: #fff;
+  border-radius: 20rpx;
+  padding: 40rpx 0;
+  margin: 12rpx;
+  text-align: center;
+  box-sizing: border-box;
+  box-shadow: 0 4rpx 12rpx rgba(43, 47, 54, 0.04);
+}
+.subject-icon {
+  width: 96rpx; height: 96rpx;
+  border-radius: 24rpx; margin: 0 auto;
+  display: flex; align-items: center; justify-content: center;
+}
+.subject-name { font-size: 28rpx; font-weight: 500; margin-top: 16rpx; }

@@ -1,0 +1,12 @@
+<view class="page">
+  <view class="grid">
+    <view class="subject" wx:for="{{subjects}}" wx:key="_id"
+          data-id="{{item._id}}" data-name="{{item.name}}" bindtap="goKnowledge">
+      <view class="subject-icon" style="background:{{item.color || '#EAF0FF'}};">
+        <t-icon name="{{item.iconName || 'book'}}" size="48rpx" color="#4A6CF7" />
+      </view>
+      <view class="subject-name">{{item.name}}</view>
+    </view>
+  </view>
+  <view class="empty" wx:if="{{!hasSubjects}}">暂无学科，请先运行 initData 云函数初始化数据</view>
+</view>

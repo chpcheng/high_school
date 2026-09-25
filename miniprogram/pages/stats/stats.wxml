@@ -1,0 +1,51 @@
+<view class="page">
+  <!-- 总览 -->
+  <view class="summary">
+    <view class="s-item">
+      <view class="s-num">{{summary.totalPractice}}</view>
+      <view class="s-label">累计练习</view>
+    </view>
+    <view class="s-item">
+      <view class="s-num">{{summary.accuracyRate}}%</view>
+      <view class="s-label">正确率</view>
+    </view>
+    <view class="s-item">
+      <view class="s-num">{{summary.masteredPoints}}</view>
+      <view class="s-label">已掌握知识点</view>
+    </view>
+    <view class="s-item">
+      <view class="s-num warn">{{summary.weakPoints}}</view>
+      <view class="s-label">薄弱知识点</view>
+    </view>
+  </view>
+
+  <!-- 学科维度 -->
+  <view class="section-title">学科掌握情况</view>
+  <view class="card" wx:if="{{hasBySubject}}">
+    <view class="subject-row" wx:for="{{bySubject}}" wx:key="subjectId">
+      <view class="subject-name">{{item.name}}</view>
+      <view class="bar">
+        <view class="bar-inner" style="width:{{item.rate}}%;background:{{item.color}};"></view>
+      </view>
+      <view class="subject-rate" style="color:{{item.color}};">{{item.rate}}%</view>
+    </view>
+  </view>
+  <view class="empty" wx:else>暂无数据，先刷几题吧～</view>
+
+  <!-- 知识点维度（薄弱优先） -->
+  <view class="section-title">知识点掌握度（点击可巩固）</view>
+  <view class="card" wx:if="{{hasPoints}}">
+    <view class="point-row" wx:for="{{points}}" wx:key="knowledgePointId"
+          data-subjectid="{{item.subjectId}}" data-pointid="{{item.knowledgePointId}}"
+          data-name="{{item.name}}" bindtap="goPoint">
+      <view class="point-left">
+        <view class="point-name">{{item.name}}</view>
+        <view class="point-meta">{{item.subjectName}} · 练习 {{item.totalCount}} / 正确 {{item.correctCount}}</view>
+      </view>
+      <view class="point-right">
+        <view class="point-rate" style="color:{{item.color}};">{{item.rate == null ? '—' : item.rate + '%'}}</view>
+        <view class="point-label" style="color:{{item.color}};">{{item.label}}</view>
+      </view>
+    </view>
+  </view>
+</view>

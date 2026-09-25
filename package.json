@@ -1,0 +1,8 @@
+{
+  "name": "high-school-practice",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "tdesign-miniprogram": "^1.0.0"
+  }
+}

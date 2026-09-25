@@ -1,0 +1,33 @@
+.page { padding-bottom: 40rpx; }
+
+.summary {
+  display: flex;
+  background: linear-gradient(135deg, #4A6CF7, #6A8BFF);
+  color: #fff; padding: 40rpx 20rpx;
+}
+.s-item { flex: 1; text-align: center; }
+.s-num { font-size: 40rpx; font-weight: 700; }
+.s-num.warn { color: #FFE58F; }
+.s-label { font-size: 22rpx; opacity: 0.85; margin-top: 6rpx; }
+
+.section-title { font-size: 28rpx; color: #8A8F99; margin: 28rpx 28rpx 8rpx; }
+
+.subject-row {
+  display: flex; align-items: center;
+  padding: 16rpx 0;
+}
+.subject-name { width: 120rpx; font-size: 26rpx; flex-shrink: 0; }
+.bar { flex: 1; height: 20rpx; background: #F0F1F5; border-radius: 10rpx; overflow: hidden; }
+.bar-inner { height: 20rpx; border-radius: 10rpx; transition: width 0.4s; }
+.subject-rate { width: 80rpx; text-align: right; font-size: 24rpx; font-weight: 600; }
+
+.point-row {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 20rpx 0; border-bottom: 1rpx solid #F0F1F5;
+}
+.point-row:last-child { border-bottom: none; }
+.point-name { font-size: 28rpx; font-weight: 500; }
+.point-meta { font-size: 22rpx; color: #A0A5B0; margin-top: 6rpx; }
+.point-right { text-align: right; }
+.point-rate { font-size: 28rpx; font-weight: 700; }
+.point-label { font-size: 20rpx; }

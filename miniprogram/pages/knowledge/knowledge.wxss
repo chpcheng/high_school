@@ -1,0 +1,44 @@
+.page { padding-bottom: 160rpx; }
+.section-title { font-size: 28rpx; color: #8A8F99; margin: 28rpx 28rpx 8rpx; }
+
+.point-head {
+  display: flex; justify-content: space-between; align-items: center;
+  padding-bottom: 16rpx; border-bottom: 1rpx solid #F0F1F5;
+}
+.point-head-title { font-size: 30rpx; font-weight: 600; }
+.link { color: #4A6CF7; font-size: 26rpx; }
+
+.point {
+  display: flex; align-items: center;
+  padding: 20rpx 0;
+  border-bottom: 1rpx solid #F0F1F5;
+}
+.point:last-child { border-bottom: none; }
+.checkbox {
+  width: 40rpx; height: 40rpx; border-radius: 10rpx;
+  border: 2rpx solid #C9D2F0; margin-right: 20rpx;
+  color: #fff; font-size: 26rpx;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.checkbox.checked { background: #4A6CF7; border-color: #4A6CF7; }
+.point-info { flex: 1; }
+.point-name { font-size: 28rpx; }
+.point-meta { font-size: 22rpx; color: #A0A5B0; margin-top: 4rpx; }
+.mastery { text-align: right; }
+.mastery-rate { display: block; font-size: 26rpx; font-weight: 600; }
+.mastery-label { font-size: 20rpx; }
+
+.row { display: flex; flex-wrap: wrap; }
+.chip {
+  padding: 12rpx 32rpx; border-radius: 40rpx;
+  background: #F0F1F5; color: #2B2F36;
+  font-size: 26rpx; margin: 8rpx 16rpx 8rpx 0;
+}
+.chip.active { background: #EAF0FF; color: #4A6CF7; font-weight: 600; }
+
+.footer {
+  position: fixed; left: 0; right: 0; bottom: 0;
+  padding: 20rpx 32rpx calc(20rpx + env(safe-area-inset-bottom));
+  background: #fff; box-shadow: 0 -4rpx 16rpx rgba(43,47,54,0.06);
+}

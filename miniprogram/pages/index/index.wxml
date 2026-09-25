@@ -1,0 +1,61 @@
+<view class="page">
+  <!-- 概览卡片 -->
+  <view class="hero">
+    <view class="hero-title">高中刷题</view>
+    <view class="hero-sub">学科 · 知识点 · 难度，逐题精讲，攻克薄弱</view>
+    <view class="hero-stats">
+      <view class="stat">
+        <view class="stat-num">{{summary.totalPractice}}</view>
+        <view class="stat-label">累计练习</view>
+      </view>
+      <view class="stat">
+        <view class="stat-num">{{summary.accuracyRate}}%</view>
+        <view class="stat-label">正确率</view>
+      </view>
+      <view class="stat">
+        <view class="stat-num">{{summary.weakPoints}}</view>
+        <view class="stat-label">薄弱点</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 快捷入口 -->
+  <view class="quick">
+    <view class="quick-item" bindtap="goSubject">
+      <view class="quick-icon" style="background:#EAF0FF;color:#4A6CF7;">
+        <t-icon name="edit" size="44rpx" color="#4A6CF7" />
+      </view>
+      <view class="quick-text">开始刷题</view>
+    </view>
+    <view class="quick-item" bindtap="goMistakes">
+      <view class="quick-icon" style="background:#FFEFE6;color:#E8564A;">
+        <t-icon name="book" size="44rpx" color="#E8564A" />
+      </view>
+      <view class="quick-text">错题本</view>
+    </view>
+    <view class="quick-item" bindtap="goStats">
+      <view class="quick-icon" style="background:#E8F8EF;color:#2FB26A;">
+        <t-icon name="chart-bar" size="44rpx" color="#2FB26A" />
+      </view>
+      <view class="quick-text">掌握度统计</view>
+    </view>
+  </view>
+
+  <!-- 薄弱知识点推荐 -->
+  <view class="section-title">薄弱知识点 · 一键巩固</view>
+  <view class="card" wx:if="{{hasWeak}}">
+    <view class="weak-item" wx:for="{{weakList}}" wx:key="knowledgePointId"
+          data-subjectid="{{item.subjectId}}" data-knowledgepointid="{{item.knowledgePointId}}"
+          data-name="{{item.name}}" bindtap="goWeak">
+      <view class="weak-info">
+        <view class="weak-name">{{item.name}}</view>
+        <view class="weak-meta">练习 {{item.totalCount}} 题 · 正确 {{item.correctCount}} 题</view>
+      </view>
+      <view class="weak-right">
+        <text class="weak-rate" style="color:{{item.rateColor}};">{{item.rateText}}</text>
+        <view class="weak-go"><text>去巩固</text><t-icon name="chevron-right" size="32rpx" color="#4A6CF7" /></view>
+      </view>
+    </view>
+  </view>
+  <view class="empty" wx:else>暂无薄弱知识点，去刷题吧～</view>
+</view>

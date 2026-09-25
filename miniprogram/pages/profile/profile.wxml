@@ -1,0 +1,37 @@
+<view class="page">
+  <view class="tip">完善资料后，你的学习数据将与账号绑定、云端保存。头像与昵称仅用于展示。</view>
+
+  <view class="card">
+    <view class="avatar-row">
+      <button class="avatar-btn" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">
+        <image wx:if="{{avatarUrl}}" class="avatar-img" src="{{avatarUrl}}" mode="aspectFill" />
+        <view wx:else class="avatar-placeholder">
+          <t-icon name="user" size="64rpx" color="#FFFFFF" />
+        </view>
+        <view class="avatar-badge">
+          <t-icon name="camera" size="24rpx" color="#FFFFFF" />
+        </view>
+      </button>
+      <view class="avatar-hint">点击头像选择微信头像</view>
+    </view>
+
+    <view class="field">
+      <view class="field-label">昵称</view>
+      <input
+        class="field-input"
+        type="nickname"
+        placeholder="请输入昵称"
+        value="{{nickname}}"
+        maxlength="32"
+        bind:input="onNicknameInput"
+      />
+    </view>
+  </view>
+
+  <view class="save-area">
+    <button class="btn-primary save-btn" bindtap="onSave" disabled="{{saving}}">
+      {{saving ? '保存中...' : '保存'}}
+    </button>
+    <view class="skip" bindtap="onSkip">暂不完善，稍后再说</view>
+  </view>
+</view>
