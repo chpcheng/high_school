@@ -1,0 +1,44 @@
+<view class="page">
+  <view class="section-title">知识点（可多选）</view>
+  <view class="card">
+    <view class="point-head">
+      <text class="point-head-title">{{subjectName || '请选择'}}</text>
+      <text class="link" bindtap="selectAll">{{selectedPointIds.length === points.length ? '取消全选' : '全选'}}</text>
+    </view>
+    <view class="point" wx:for="{{points}}" wx:key="_id"
+          data-id="{{item._id}}" bindtap="togglePoint">
+      <view class="checkbox {{selectedPointIds.indexOf(item._id) >= 0 ? 'checked' : ''}}">
+        <text wx:if="{{selectedPointIds.indexOf(item._id) >= 0}}">✓</text>
+      </view>
+      <view class="point-info">
+        <view class="point-name">{{item.name}}</view>
+        <view class="point-meta" wx:if="{{item.masteryRate != null}}">
+          练习 {{item.totalCount}} 题 · 正确 {{item.correctCount}} 题
+        </view>
+      </view>
+      <view class="mastery" style="color:{{item.masteryColor}};">
+        <text class="mastery-rate">{{item.masteryText}}</text>
+        <text class="mastery-label">{{item.masteryLabel}}</text>
+      </view>
+    </view>
+    <view class="empty" wx:if="{{!points.length}}">暂无知识点</view>
+  </view>
+
+  <view class="section-title">难度</view>
+  <view class="card row">
+    <view class="chip {{difficulty === item.value ? 'active' : ''}}"
+          wx:for="{{difficulties}}" wx:key="value"
+          data-value="{{item.value}}" bindtap="setDifficulty">{{item.label}}</view>
+  </view>
+
+  <view class="section-title">题量</view>
+  <view class="card row">
+    <view class="chip {{count === item ? 'active' : ''}}"
+          wx:for="{{counts}}" wx:key="*this"
+          data-value="{{item}}" bindtap="setCount">{{item}} 题</view>
+  </view>
+
+  <view class="footer">
+    <button class="btn-primary" bindtap="start">开始练习</button>
+  </view>
+</view>

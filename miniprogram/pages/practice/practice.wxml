@@ -1,0 +1,62 @@
+<view class="page" wx:if="{{!loading}}">
+  <!-- 进度条 -->
+  <view class="progress-bar">
+    <view class="progress-inner" style="width:{{(current + 1) / total * 100}}%;"></view>
+  </view>
+  <view class="progress-info">
+    <text>第 {{current + 1}} / {{total}} 题</text>
+    <text wx:if="{{subjectName}}">{{subjectName}}</text>
+  </view>
+
+  <!-- 题目卡片 -->
+  <view class="card">
+    <view class="q-meta">
+      <text class="tag type">{{typeText}}</text>
+      <text class="tag diff" wx:if="{{difficultyText}}">{{difficultyText}}</text>
+    </view>
+    <view class="stem">{{questions[current].stem}}</view>
+    <image wx:if="{{questions[current].stemImage}}" class="stem-img" src="{{questions[current].stemImage}}" mode="widthFix" />
+
+    <!-- 单选 -->
+    <block wx:if="{{questions[current].type === 'single'}}">
+      <view class="option {{selectedKeys.indexOf(item.key) >= 0 ? 'active' : ''}}"
+            wx:for="{{questions[current].options}}" wx:key="key"
+            data-key="{{item.key}}" bindtap="selectOption">
+        <view class="option-key">{{item.key}}</view>
+        <view class="option-text">{{item.text}}</view>
+      </view>
+    </block>
+
+    <!-- 多选 -->
+    <block wx:elif="{{questions[current].type === 'multiple'}}">
+      <view class="option {{selectedKeys.indexOf(item.key) >= 0 ? 'active' : ''}}"
+            wx:for="{{questions[current].options}}" wx:key="key"
+            data-key="{{item.key}}" bindtap="toggleOption">
+        <view class="checkbox {{selectedKeys.indexOf(item.key) >= 0 ? 'checked' : ''}}">✓</view>
+        <view class="option-text">{{item.key}}. {{item.text}}</view>
+      </view>
+      <view class="hint">多选题，请选择所有正确选项</view>
+    </block>
+
+    <!-- 填空 -->
+    <block wx:elif="{{questions[current].type === 'fill'}}">
+      <input class="fill-input" placeholder="请输入答案（多空用逗号分隔）"
+             value="{{fillText}}" bindinput="onFillInput" />
+    </block>
+
+    <!-- 解答 -->
+    <block wx:else>
+      <textarea class="solution-input" placeholder="请写下你的解题过程或答案…"
+                value="{{solutionText}}" bindinput="onSolutionInput"
+                maxlength="-1" auto-height />
+    </block>
+  </view>
+
+  <!-- 底部按钮 -->
+  <view class="footer">
+    <button class="btn-ghost nav-btn" bindtap="prev" disabled="{{current === 0}}">上一题</button>
+    <button class="btn-primary nav-btn" bindtap="next">
+      {{current === total - 1 ? '提交' : '下一题'}}
+    </button>
+  </view>
+</view>

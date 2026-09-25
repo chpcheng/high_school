@@ -1,0 +1,78 @@
+<view class="page" wx:if="{{!loading && cur}}">
+  <!-- 判题结果 -->
+  <view class="result-banner {{cur.isCorrect ? 'correct' : 'wrong'}}" wx:if="{{cur.showResult}}">
+    <view class="result-icon">{{cur.isCorrect ? '✓' : '✗'}}</view>
+    <view class="result-text">
+      <view class="result-title">{{cur.isCorrect ? '回答正确' : '回答错误'}}</view>
+      <view class="result-score" wx:if="{{cur.score != null}}">得分 {{cur.score}}</view>
+    </view>
+  </view>
+  <view class="result-banner review" wx:else>
+    <view class="result-icon">📖</view>
+    <view class="result-text">
+      <view class="result-title">解析回顾</view>
+    </view>
+  </view>
+
+  <!-- 题目 -->
+  <view class="card">
+    <view class="q-meta">
+      <text class="tag type">{{cur.typeText}}</text>
+      <text class="tag diff" wx:if="{{cur.difficultyText}}">{{cur.difficultyText}}</text>
+    </view>
+    <view class="stem">{{cur.stem}}</view>
+    <image wx:if="{{cur.stemImage}}" class="stem-img" src="{{cur.stemImage}}" mode="widthFix" />
+
+    <!-- 选择题选项高亮 -->
+    <block wx:if="{{cur.type === 'single' || cur.type === 'multiple'}}">
+      <view class="option {{item.cls}}" wx:for="{{cur.options}}" wx:key="key">
+        <view class="option-key">{{item.key}}</view>
+        <view class="option-text">{{item.text}}</view>
+      </view>
+    </block>
+  </view>
+
+  <!-- 答案对照 -->
+  <view class="card answer-card" wx:if="{{cur.showResult}}">
+    <view class="answer-row"><text class="answer-label">你的答案</text><text>{{cur.userAnswerText}}</text></view>
+    <view class="answer-row"><text class="answer-label">正确答案</text><text class="correct-text">{{cur.answerText}}</text></view>
+  </view>
+
+  <!-- 解题思路 -->
+  <view class="card">
+    <view class="block-title">💡 解题思路</view>
+    <view class="analysis">{{cur.analysis || '暂无整体讲解'}}</view>
+  </view>
+
+  <!-- 分步引导 -->
+  <view class="card">
+    <view class="block-title">🧭 分步解析 <text class="step-count">{{revealedCount}}/{{cur.stepsTotal}}</text></view>
+    <view class="think-tip" wx:if="{{canReveal}}">💭 建议先自己想一想，再点开下一步</view>
+
+    <view class="step {{item.visible ? 'visible' : 'hidden'}}" wx:for="{{cur.steps}}" wx:key="order">
+      <view class="step-head">
+        <view class="step-num">{{index + 1}}</view>
+        <view class="step-title">{{item.title}}</view>
+      </view>
+      <view class="step-content" wx:if="{{item.visible}}">{{item.content}}</view>
+      <view class="step-lock" wx:else>点击下方「查看下一步」揭示此步骤</view>
+    </view>
+
+    <view class="empty" wx:if="{{!cur.steps.length}}">本题暂无分步解析</view>
+
+    <view class="step-btns" wx:if="{{cur.steps.length}}">
+      <button class="btn-ghost step-btn" wx:if="{{canReveal}}" bindtap="revealNext">查看下一步</button>
+      <button class="btn-ghost step-btn" wx:if="{{canReveal}}" bindtap="revealAll">全部展开</button>
+      <view class="reveal-done" wx:else>✅ 已展示全部步骤</view>
+    </view>
+  </view>
+
+  <!-- 底部操作 -->
+  <view class="footer">
+    <button class="btn-ghost nav-btn" bindtap="prevResult" disabled="{{current === 0}}">上一题</button>
+    <button class="btn-ghost nav-btn" bindtap="redo" wx:if="{{cur.showResult}}">重做</button>
+    <button class="btn-primary nav-btn" bindtap="nextResult">
+      {{current === total - 1 ? '完成' : '下一题'}}
+    </button>
+  </view>
+</view>

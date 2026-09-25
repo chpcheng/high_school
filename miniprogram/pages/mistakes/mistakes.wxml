@@ -1,0 +1,42 @@
+<view class="page">
+  <!-- 学科筛选 -->
+  <scroll-view scroll-x class="subject-bar" wx:if="{{subjects.length}}">
+    <view class="chip {{subjectFilter === '' ? 'active' : ''}}" data-value="" bindtap="setSubject">全部学科</view>
+    <view class="chip {{subjectFilter === item._id ? 'active' : ''}}"
+          wx:for="{{subjects}}" wx:key="_id" data-value="{{item._id}}" bindtap="setSubject">{{item.name}}</view>
+  </scroll-view>
+
+  <!-- 状态筛选 -->
+  <view class="status-bar">
+    <view class="chip {{statusFilter === item.value ? 'active' : ''}}"
+          wx:for="{{statusTabs}}" wx:key="value" data-value="{{item.value}}" bindtap="setStatus">{{item.label}}</view>
+  </view>
+
+  <!-- 错题列表 -->
+  <view class="list">
+    <view class="card mistake" wx:for="{{list}}" wx:key="_id">
+      <view class="m-head">
+        <text class="tag type">{{item.typeText}}</text>
+        <text class="tag diff">{{item.difficultyText}}</text>
+        <text class="tag subj">{{item.subjectName}}</text>
+        <text class="m-count" wx:if="{{item.wrongCount > 1}}">错 {{item.wrongCount}} 次</text>
+      </view>
+      <view class="m-stem ellipsis" data-questionid="{{item.questionId}}" bindtap="viewDetail">{{item.stem}}</view>
+      <view class="m-meta">
+        <text>{{item.knowledgePointName || ''}}</text>
+        <text>{{item.dateText}}</text>
+      </view>
+      <view class="m-actions">
+        <text class="link" data-questionid="{{item.questionId}}" bindtap="viewDetail">看解析</text>
+        <text class="link" data-questionid="{{item.questionId}}" bindtap="redo">重做</text>
+        <text class="link" data-id="{{item._id}}" data-status="{{item.status}}" bindtap="toggleStatus">
+          {{item.status === 'open' ? '标记掌握' : '撤销掌握'}}
+        </text>
+        <text class="link danger" data-id="{{item._id}}" bindtap="remove">移除</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="empty" wx:if="{{!loading && !list.length}}">暂无错题，继续保持～</view>
+  <view class="empty" wx:if="{{finished && list.length}}">没有更多了</view>
+</view>

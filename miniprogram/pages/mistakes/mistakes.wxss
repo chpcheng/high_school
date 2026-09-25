@@ -1,0 +1,28 @@
+.page { padding-bottom: 40rpx; }
+
+.subject-bar { white-space: nowrap; padding: 20rpx 24rpx 4rpx; box-sizing: border-box; }
+.subject-bar .chip { display: inline-block; margin-right: 16rpx; }
+
+.status-bar { padding: 12rpx 24rpx; }
+
+.chip {
+  padding: 10rpx 28rpx; border-radius: 40rpx;
+  background: #F0F1F5; color: #2B2F36; font-size: 24rpx;
+}
+.chip.active { background: #EAF0FF; color: #4A6CF7; font-weight: 600; }
+
+.m-head { display: flex; align-items: center; margin-bottom: 12rpx; }
+.tag { margin-right: 10rpx; }
+.tag.type { background: #EAF0FF; color: #4A6CF7; }
+.tag.diff { background: #F0F1F5; color: #8A8F99; }
+.tag.subj { background: #E8F8EF; color: #2FB26A; }
+.m-count { margin-left: auto; font-size: 22rpx; color: #E8564A; }
+
+.m-stem { font-size: 28rpx; line-height: 1.6; margin-bottom: 12rpx; }
+.m-meta {
+  display: flex; justify-content: space-between;
+  font-size: 22rpx; color: #A0A5B0; margin-bottom: 16rpx;
+}
+.m-actions { display: flex; gap: 28rpx; border-top: 1rpx solid #F0F1F5; padding-top: 16rpx; }
+.link { font-size: 26rpx; color: #4A6CF7; }
+.link.danger { color: #E8564A; }

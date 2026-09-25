@@ -1,0 +1,26 @@
+<view class="page">
+  <view class="profile">
+    <view class="avatar">🎓</view>
+    <view class="profile-info">
+      <view class="profile-name">同学你好</view>
+      <view class="profile-id" wx:if="{{openid}}">ID: {{openid}}</view>
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="data-row">
+      <text>累计练习</text><text class="val">{{summary.totalPractice}} 题</text>
+    </view>
+    <view class="data-row">
+      <text>累计答对</text><text class="val">{{summary.totalCorrect}} 题</text>
+    </view>
+    <view class="data-row">
+      <text>正确率</text><text class="val">{{summary.accuracyRate}}%</text>
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="menu" bindtap="about">关于本小程序 <text class="arrow">›</text></view>
+    <view class="menu" bindtap="clearCache">清理缓存 <text class="arrow">›</text></view>
+  </view>
+</view>

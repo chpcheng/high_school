@@ -1,0 +1,72 @@
+.page { padding-bottom: 160rpx; }
+
+.progress-bar {
+  height: 10rpx; background: #E6E8F0;
+}
+.progress-inner {
+  height: 10rpx; background: linear-gradient(90deg, #4A6CF7, #6A8BFF);
+  transition: width 0.3s;
+}
+.progress-info {
+  display: flex; justify-content: space-between;
+  font-size: 24rpx; color: #8A8F99;
+  padding: 16rpx 28rpx;
+}
+
+.q-meta { margin-bottom: 16rpx; }
+.tag { margin-right: 12rpx; }
+.tag.type { background: #EAF0FF; color: #4A6CF7; }
+.tag.diff { background: #F0F1F5; color: #8A8F99; }
+
+.stem {
+  font-size: 30rpx; line-height: 1.7;
+  white-space: pre-wrap;
+}
+.stem-img { margin-top: 16rpx; border-radius: 12rpx; }
+
+.option {
+  display: flex; align-items: center;
+  padding: 22rpx; border-radius: 14rpx;
+  border: 2rpx solid #EAECF2;
+  margin-top: 20rpx;
+  background: #fff;
+}
+.option.active {
+  border-color: #4A6CF7;
+  background: #F5F8FF;
+}
+.option-key {
+  width: 48rpx; height: 48rpx; line-height: 48rpx;
+  border-radius: 50%; background: #F0F1F5; color: #2B2F36;
+  text-align: center; font-size: 26rpx; margin-right: 20rpx; flex-shrink: 0;
+}
+.option.active .option-key { background: #4A6CF7; color: #fff; }
+.option-text { font-size: 28rpx; line-height: 1.6; flex: 1; }
+
+.checkbox {
+  width: 40rpx; height: 40rpx; line-height: 40rpx; text-align: center;
+  border-radius: 8rpx; border: 2rpx solid #C9D2F0;
+  color: #fff; font-size: 24rpx; margin-right: 20rpx; flex-shrink: 0;
+}
+.checkbox.checked { background: #4A6CF7; border-color: #4A6CF7; }
+
+.hint { font-size: 22rpx; color: #A0A5B0; margin-top: 16rpx; }
+
+.fill-input {
+  margin-top: 24rpx; border: 2rpx solid #EAECF2; border-radius: 14rpx;
+  padding: 20rpx; font-size: 28rpx;
+}
+.solution-input {
+  margin-top: 24rpx; border: 2rpx solid #EAECF2; border-radius: 14rpx;
+  padding: 20rpx; font-size: 28rpx; width: 100%; box-sizing: border-box;
+  min-height: 240rpx; line-height: 1.6;
+}
+
+.footer {
+  position: fixed; left: 0; right: 0; bottom: 0;
+  display: flex; gap: 20rpx;
+  padding: 20rpx 32rpx calc(20rpx + env(safe-area-inset-bottom));
+  background: #fff; box-shadow: 0 -4rpx 16rpx rgba(43,47,54,0.06);
+}
+.nav-btn { flex: 1; }
+.nav-btn[disabled] { background: #E6E8F0; color: #A0A5B0; border-color: #E6E8F0; }
